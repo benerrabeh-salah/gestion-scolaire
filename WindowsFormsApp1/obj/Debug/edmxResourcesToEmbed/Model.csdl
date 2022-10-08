@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gestion_Stagiaire1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AbsenceE">
+    <Key>
+      <PropertyRef Name="Code_E" />
+      <PropertyRef Name="Code_M" />
+      <PropertyRef Name="date_absence" />
+    </Key>
+    <Property Name="Code_E" Type="Int32" Nullable="false" />
+    <Property Name="Code_M" Type="Int32" Nullable="false" />
+    <Property Name="date_absence" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Nombre_Heure" Type="Int32" />
+    <NavigationProperty Name="Etudiant" Relationship="Self.FK__AbsenceE__Code_E__35BCFE0A" FromRole="AbsenceE" ToRole="Etudiant" />
+    <NavigationProperty Name="Matiere" Relationship="Self.FK__AbsenceE__Code_M__36B12243" FromRole="AbsenceE" ToRole="Matiere" />
+  </EntityType>
+  <EntityType Name="AbsenceP">
+    <Key>
+      <PropertyRef Name="Cin_P" />
+      <PropertyRef Name="date_absence" />
+    </Key>
+    <Property Name="Cin_P" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date_absence" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Nombre_Heure" Type="Int32" />
+    <NavigationProperty Name="Professeur" Relationship="Self.FK__AbsenceP__Cin_P__398D8EEE" FromRole="AbsenceP" ToRole="Professeur" />
+  </EntityType>
+  <EntityType Name="Etudiant">
+    <Key>
+      <PropertyRef Name="Code_E" />
+    </Key>
+    <Property Name="Code_E" Type="Int32" Nullable="false" />
+    <Property Name="Nom" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Prenom" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Naissance" Type="DateTime" Precision="0" />
+    <Property Name="Numero_telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Code_F" Type="Int32" />
+    <NavigationProperty Name="AbsenceEs" Relationship="Self.FK__AbsenceE__Code_E__35BCFE0A" FromRole="Etudiant" ToRole="AbsenceE" />
+    <NavigationProperty Name="Filiere" Relationship="Self.FK__Etudiant__Code_F__2A4B4B5E" FromRole="Etudiant" ToRole="Filiere" />
+    <NavigationProperty Name="Evaluations" Relationship="Self.FK__Evaluatio__Code___31EC6D26" FromRole="Etudiant" ToRole="Evaluation" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="CodeEvaluatio" />
+    </Key>
+    <Property Name="Code_E" Type="Int32" />
+    <Property Name="Code_M" Type="Int32" />
+    <Property Name="note" Type="Double" />
+    <Property Name="CodeEvaluatio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Etudiant" Relationship="Self.FK__Evaluatio__Code___31EC6D26" FromRole="Evaluation" ToRole="Etudiant" />
+    <NavigationProperty Name="Matiere" Relationship="Self.FK__Evaluatio__Code___32E0915F" FromRole="Evaluation" ToRole="Matiere" />
+  </EntityType>
+  <EntityType Name="Filiere">
+    <Key>
+      <PropertyRef Name="Code_F" />
+    </Key>
+    <Property Name="Code_F" Type="Int32" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="type_F" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Etudiants" Relationship="Self.FK__Etudiant__Code_F__2A4B4B5E" FromRole="Filiere" ToRole="Etudiant" />
+  </EntityType>
+  <EntityType Name="Loginn">
+    <Key>
+      <PropertyRef Name="SerieA" />
+    </Key>
+    <Property Name="LoginA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Mdp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SerieA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NomA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Matiere">
+    <Key>
+      <PropertyRef Name="Code_M" />
+    </Key>
+    <Property Name="Code_M" Type="Int32" Nullable="false" />
+    <Property Name="libelle_M" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="coefficient" Type="Int32" />
+    <Property Name="Mh_M" Type="Int32" />
+    <Property Name="Cin_P" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AbsenceEs" Relationship="Self.FK__AbsenceE__Code_M__36B12243" FromRole="Matiere" ToRole="AbsenceE" />
+    <NavigationProperty Name="Evaluations" Relationship="Self.FK__Evaluatio__Code___32E0915F" FromRole="Matiere" ToRole="Evaluation" />
+    <NavigationProperty Name="Professeur" Relationship="Self.FK__Matiere__Cin_P__2F10007B" FromRole="Matiere" ToRole="Professeur" />
+  </EntityType>
+  <EntityType Name="Professeur">
+    <Key>
+      <PropertyRef Name="Cin_P" />
+    </Key>
+    <Property Name="Cin_P" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nom" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DateNP" Type="DateTime" Precision="0" />
+    <Property Name="Sexe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TelP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AbsencePs" Relationship="Self.FK__AbsenceP__Cin_P__398D8EEE" FromRole="Professeur" ToRole="AbsenceP" />
+    <NavigationProperty Name="Matieres" Relationship="Self.FK__Matiere__Cin_P__2F10007B" FromRole="Professeur" ToRole="Matiere" />
+  </EntityType>
+  <Association Name="FK__AbsenceE__Code_E__35BCFE0A">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceE" Type="Self.AbsenceE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="Code_E" />
+      </Principal>
+      <Dependent Role="AbsenceE">
+        <PropertyRef Name="Code_E" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AbsenceE__Code_M__36B12243">
+    <End Role="Matiere" Type="Self.Matiere" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceE" Type="Self.AbsenceE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matiere">
+        <PropertyRef Name="Code_M" />
+      </Principal>
+      <Dependent Role="AbsenceE">
+        <PropertyRef Name="Code_M" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AbsenceP__Cin_P__398D8EEE">
+    <End Role="Professeur" Type="Self.Professeur" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceP" Type="Self.AbsenceP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professeur">
+        <PropertyRef Name="Cin_P" />
+      </Principal>
+      <Dependent Role="AbsenceP">
+        <PropertyRef Name="Cin_P" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Etudiant__Code_F__2A4B4B5E">
+    <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filiere">
+        <PropertyRef Name="Code_F" />
+      </Principal>
+      <Dependent Role="Etudiant">
+        <PropertyRef Name="Code_F" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluatio__Code___31EC6D26">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="Code_E" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="Code_E" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluatio__Code___32E0915F">
+    <End Role="Matiere" Type="Self.Matiere" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matiere">
+        <PropertyRef Name="Code_M" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="Code_M" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Matiere__Cin_P__2F10007B">
+    <End Role="Professeur" Type="Self.Professeur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Matiere" Type="Self.Matiere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professeur">
+        <PropertyRef Name="Cin_P" />
+      </Principal>
+      <Dependent Role="Matiere">
+        <PropertyRef Name="Cin_P" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StagiaireEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AbsenceEs" EntityType="Self.AbsenceE" />
+    <EntitySet Name="AbsencePs" EntityType="Self.AbsenceP" />
+    <EntitySet Name="Etudiants" EntityType="Self.Etudiant" />
+    <EntitySet Name="Evaluations" EntityType="Self.Evaluation" />
+    <EntitySet Name="Filieres" EntityType="Self.Filiere" />
+    <EntitySet Name="Loginns" EntityType="Self.Loginn" />
+    <EntitySet Name="Matieres" EntityType="Self.Matiere" />
+    <EntitySet Name="Professeurs" EntityType="Self.Professeur" />
+    <AssociationSet Name="FK__AbsenceE__Code_E__35BCFE0A" Association="Self.FK__AbsenceE__Code_E__35BCFE0A">
+      <End Role="Etudiant" EntitySet="Etudiants" />
+      <End Role="AbsenceE" EntitySet="AbsenceEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AbsenceE__Code_M__36B12243" Association="Self.FK__AbsenceE__Code_M__36B12243">
+      <End Role="Matiere" EntitySet="Matieres" />
+      <End Role="AbsenceE" EntitySet="AbsenceEs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AbsenceP__Cin_P__398D8EEE" Association="Self.FK__AbsenceP__Cin_P__398D8EEE">
+      <End Role="Professeur" EntitySet="Professeurs" />
+      <End Role="AbsenceP" EntitySet="AbsencePs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Etudiant__Code_F__2A4B4B5E" Association="Self.FK__Etudiant__Code_F__2A4B4B5E">
+      <End Role="Filiere" EntitySet="Filieres" />
+      <End Role="Etudiant" EntitySet="Etudiants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluatio__Code___31EC6D26" Association="Self.FK__Evaluatio__Code___31EC6D26">
+      <End Role="Etudiant" EntitySet="Etudiants" />
+      <End Role="Evaluation" EntitySet="Evaluations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluatio__Code___32E0915F" Association="Self.FK__Evaluatio__Code___32E0915F">
+      <End Role="Matiere" EntitySet="Matieres" />
+      <End Role="Evaluation" EntitySet="Evaluations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Matiere__Cin_P__2F10007B" Association="Self.FK__Matiere__Cin_P__2F10007B">
+      <End Role="Professeur" EntitySet="Professeurs" />
+      <End Role="Matiere" EntitySet="Matieres" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

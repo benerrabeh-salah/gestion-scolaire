@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Gestion_ScolariteModelStoreContainer" CdmEntityContainer="GestionScolariteEntities">
+    <EntitySetMapping Name="AbsenceFs">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.AbsenceF">
+        <MappingFragment StoreEntitySet="AbsenceF">
+          <ScalarProperty Name="Cin_F" ColumnName="Cin_F" />
+          <ScalarProperty Name="date_absence" ColumnName="date_absence" />
+          <ScalarProperty Name="Nombre_Heure" ColumnName="Nombre_Heure" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AbsenceS">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Absence">
+        <MappingFragment StoreEntitySet="AbsenceS">
+          <ScalarProperty Name="CIN" ColumnName="CIN" />
+          <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+          <ScalarProperty Name="date_absence" ColumnName="date_absence" />
+          <ScalarProperty Name="Nombre_Heure" ColumnName="Nombre_Heure" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Evaluations">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Evaluation">
+        <MappingFragment StoreEntitySet="Evaluation">
+          <ScalarProperty Name="CIN" ColumnName="CIN" />
+          <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+          <ScalarProperty Name="dateEval" ColumnName="dateEval" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Filieres">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Filiere">
+        <MappingFragment StoreEntitySet="Filiere">
+          <ScalarProperty Name="Code_F" ColumnName="Code_F" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="type_F" ColumnName="type_F" />
+          <ScalarProperty Name="Idfil" ColumnName="Idfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Formateurs">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Formateur">
+        <MappingFragment StoreEntitySet="Formateur">
+          <ScalarProperty Name="Cin_F" ColumnName="Cin_F" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="DateNP" ColumnName="DateNP" />
+          <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="TelP" ColumnName="TelP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Login">
+        <MappingFragment StoreEntitySet="Login">
+          <ScalarProperty Name="LoginA" ColumnName="LoginA" />
+          <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+          <ScalarProperty Name="SerieA" ColumnName="SerieA" />
+          <ScalarProperty Name="NomA" ColumnName="NomA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Module">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+          <ScalarProperty Name="libelle_M" ColumnName="libelle_M" />
+          <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+          <ScalarProperty Name="Mh_M" ColumnName="Mh_M" />
+          <ScalarProperty Name="Cin_F" ColumnName="Cin_F" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stagiaires">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.Stagiaire">
+        <MappingFragment StoreEntitySet="Stagiaire">
+          <ScalarProperty Name="CIN" ColumnName="CIN" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="CNE" ColumnName="CNE" />
+          <ScalarProperty Name="Date_Naissance" ColumnName="Date_Naissance" />
+          <ScalarProperty Name="Numero_telephone" ColumnName="Numero_telephone" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Idfil" ColumnName="Idfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CrystalAffiches">
+      <EntityTypeMapping TypeName="Gestion_ScolariteModel.CrystalAffiche">
+        <MappingFragment StoreEntitySet="CrystalAffiche">
+          <ScalarProperty Name="CIN" ColumnName="CIN" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+          <ScalarProperty Name="libelle_M" ColumnName="libelle_M" />
+          <ScalarProperty Name="Moyenne" ColumnName="Moyenne" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ProcInsert" FunctionName="Gestion_ScolariteModel.Store.ProcInsert" />
+  </EntityContainerMapping>
+</Mapping>

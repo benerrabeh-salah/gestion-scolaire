@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Gestion_Stagiaire1ModelStoreContainer" CdmEntityContainer="StagiaireEntities">
+    <EntitySetMapping Name="AbsenceEs">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.AbsenceE">
+        <MappingFragment StoreEntitySet="AbsenceE">
+          <ScalarProperty Name="Code_E" ColumnName="Code_E" />
+          <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+          <ScalarProperty Name="date_absence" ColumnName="date_absence" />
+          <ScalarProperty Name="Nombre_Heure" ColumnName="Nombre_Heure" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AbsencePs">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.AbsenceP">
+        <MappingFragment StoreEntitySet="AbsenceP">
+          <ScalarProperty Name="Cin_P" ColumnName="Cin_P" />
+          <ScalarProperty Name="date_absence" ColumnName="date_absence" />
+          <ScalarProperty Name="Nombre_Heure" ColumnName="Nombre_Heure" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Etudiants">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.Etudiant">
+        <MappingFragment StoreEntitySet="Etudiant">
+          <ScalarProperty Name="Code_E" ColumnName="Code_E" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="CIN" ColumnName="CIN" />
+          <ScalarProperty Name="Date_Naissance" ColumnName="Date_Naissance" />
+          <ScalarProperty Name="Numero_telephone" ColumnName="Numero_telephone" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Code_F" ColumnName="Code_F" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Evaluations">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.Evaluation">
+        <MappingFragment StoreEntitySet="Evaluation">
+          <ScalarProperty Name="Code_E" ColumnName="Code_E" />
+          <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="CodeEvaluatio" ColumnName="CodeEvaluatio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Filieres">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.Filiere">
+        <MappingFragment StoreEntitySet="Filiere">
+          <ScalarProperty Name="Code_F" ColumnName="Code_F" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="type_F" ColumnName="type_F" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Loginns">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.Loginn">
+        <MappingFragment StoreEntitySet="Loginn">
+          <ScalarProperty Name="LoginA" ColumnName="LoginA" />
+          <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+          <ScalarProperty Name="SerieA" ColumnName="SerieA" />
+          <ScalarProperty Name="NomA" ColumnName="NomA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matieres">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.Matiere">
+        <MappingFragment StoreEntitySet="Matiere">
+          <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+          <ScalarProperty Name="libelle_M" ColumnName="libelle_M" />
+          <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+          <ScalarProperty Name="Mh_M" ColumnName="Mh_M" />
+          <ScalarProperty Name="Cin_P" ColumnName="Cin_P" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professeurs">
+      <EntityTypeMapping TypeName="Gestion_Stagiaire1Model.Professeur">
+        <MappingFragment StoreEntitySet="Professeur">
+          <ScalarProperty Name="Cin_P" ColumnName="Cin_P" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="DateNP" ColumnName="DateNP" />
+          <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="TelP" ColumnName="TelP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

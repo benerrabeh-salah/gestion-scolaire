@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Gestion_ScolariteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AbsenceF">
+          <Key>
+            <PropertyRef Name="Cin_F" />
+            <PropertyRef Name="date_absence" />
+          </Key>
+          <Property Name="Cin_F" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="date_absence" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre_Heure" Type="int" />
+        </EntityType>
+        <EntityType Name="AbsenceS">
+          <Key>
+            <PropertyRef Name="CIN" />
+            <PropertyRef Name="Code_M" />
+            <PropertyRef Name="date_absence" />
+          </Key>
+          <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Code_M" Type="int" Nullable="false" />
+          <Property Name="date_absence" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre_Heure" Type="int" />
+        </EntityType>
+        <EntityType Name="Evaluation">
+          <Key>
+            <PropertyRef Name="CIN" />
+            <PropertyRef Name="Code_M" />
+            <PropertyRef Name="dateEval" />
+          </Key>
+          <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Code_M" Type="int" Nullable="false" />
+          <Property Name="dateEval" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="note" Type="float" />
+        </EntityType>
+        <EntityType Name="Filiere">
+          <Key>
+            <PropertyRef Name="Idfil" />
+          </Key>
+          <Property Name="Code_F" Type="int" />
+          <Property Name="libelle" Type="varchar" MaxLength="10" />
+          <Property Name="type_F" Type="varchar" MaxLength="20" />
+          <Property Name="Idfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Formateur">
+          <Key>
+            <PropertyRef Name="Cin_F" />
+          </Key>
+          <Property Name="Cin_F" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="20" />
+          <Property Name="Prenom" Type="varchar" MaxLength="20" />
+          <Property Name="DateNP" Type="date" />
+          <Property Name="Sexe" Type="varchar" MaxLength="10" />
+          <Property Name="Adresse" Type="varchar" MaxLength="100" />
+          <Property Name="TelP" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="SerieA" />
+          </Key>
+          <Property Name="LoginA" Type="varchar" MaxLength="10" />
+          <Property Name="Mdp" Type="varchar" MaxLength="20" />
+          <Property Name="SerieA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NomA" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="Code_M" />
+          </Key>
+          <Property Name="Code_M" Type="int" Nullable="false" />
+          <Property Name="libelle_M" Type="varchar" MaxLength="50" />
+          <Property Name="coefficient" Type="int" />
+          <Property Name="Mh_M" Type="int" />
+          <Property Name="Cin_F" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Stagiaire">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="20" />
+          <Property Name="Prenom" Type="varchar" MaxLength="20" />
+          <Property Name="CNE" Type="varchar" MaxLength="20" />
+          <Property Name="Date_Naissance" Type="date" />
+          <Property Name="Numero_telephone" Type="varchar" MaxLength="15" />
+          <Property Name="Adresse" Type="varchar" MaxLength="100" />
+          <Property Name="Idfil" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Gestion_Scolarite.dbo.CrystalAffiche' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CrystalAffiche">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="20" />
+          <Property Name="Prenom" Type="varchar" MaxLength="20" />
+          <Property Name="coefficient" Type="int" />
+          <Property Name="libelle_M" Type="varchar" MaxLength="50" />
+          <Property Name="Moyenne" Type="float" />
+        </EntityType>
+        <Association Name="FK__AbsenceF__Cin_F__37A5467C">
+          <End Role="Formateur" Type="Self.Formateur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbsenceF" Type="Self.AbsenceF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formateur">
+              <PropertyRef Name="Cin_F" />
+            </Principal>
+            <Dependent Role="AbsenceF">
+              <PropertyRef Name="Cin_F" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AbsenceS__CIN__33D4B598">
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbsenceS" Type="Self.AbsenceS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagiaire">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="AbsenceS">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AbsenceS__Code_M__34C8D9D1">
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbsenceS" Type="Self.AbsenceS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Code_M" />
+            </Principal>
+            <Dependent Role="AbsenceS">
+              <PropertyRef Name="Code_M" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Evaluatio__Code___30F848ED">
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Code_M" />
+            </Principal>
+            <Dependent Role="Evaluation">
+              <PropertyRef Name="Code_M" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Evaluation__CIN__300424B4">
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagiaire">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Evaluation">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Module__Cin_F__2D27B809">
+          <End Role="Formateur" Type="Self.Formateur" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formateur">
+              <PropertyRef Name="Cin_F" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Cin_F" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Etud_Filiere">
+          <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiere">
+              <PropertyRef Name="Idfil" />
+            </Principal>
+            <Dependent Role="Stagiaire">
+              <PropertyRef Name="Idfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ProcInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codef" Type="int" Mode="In" />
+          <Parameter Name="lib" Type="varchar" Mode="In" />
+          <Parameter Name="typef" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Gestion_ScolariteModelStoreContainer">
+          <EntitySet Name="AbsenceF" EntityType="Self.AbsenceF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbsenceS" EntityType="Self.AbsenceS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evaluation" EntityType="Self.Evaluation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filiere" EntityType="Self.Filiere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formateur" EntityType="Self.Formateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stagiaire" EntityType="Self.Stagiaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CrystalAffiche" EntityType="Self.CrystalAffiche" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CrystalAffiche].[CIN] AS [CIN], 
+    [CrystalAffiche].[Nom] AS [Nom], 
+    [CrystalAffiche].[Prenom] AS [Prenom], 
+    [CrystalAffiche].[coefficient] AS [coefficient], 
+    [CrystalAffiche].[libelle_M] AS [libelle_M], 
+    [CrystalAffiche].[Moyenne] AS [Moyenne]
+    FROM [dbo].[CrystalAffiche] AS [CrystalAffiche]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__AbsenceF__Cin_F__37A5467C" Association="Self.FK__AbsenceF__Cin_F__37A5467C">
+            <End Role="Formateur" EntitySet="Formateur" />
+            <End Role="AbsenceF" EntitySet="AbsenceF" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AbsenceS__CIN__33D4B598" Association="Self.FK__AbsenceS__CIN__33D4B598">
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+            <End Role="AbsenceS" EntitySet="AbsenceS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AbsenceS__Code_M__34C8D9D1" Association="Self.FK__AbsenceS__Code_M__34C8D9D1">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="AbsenceS" EntitySet="AbsenceS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Evaluatio__Code___30F848ED" Association="Self.FK__Evaluatio__Code___30F848ED">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="Evaluation" EntitySet="Evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Evaluation__CIN__300424B4" Association="Self.FK__Evaluation__CIN__300424B4">
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+            <End Role="Evaluation" EntitySet="Evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Module__Cin_F__2D27B809" Association="Self.FK__Module__Cin_F__2D27B809">
+            <End Role="Formateur" EntitySet="Formateur" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Etud_Filiere" Association="Self.FK_Etud_Filiere">
+            <End Role="Filiere" EntitySet="Filiere" />
+            <End Role="Stagiaire" EntitySet="Stagiaire" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Gestion_ScolariteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AbsenceF">
+          <Key>
+            <PropertyRef Name="Cin_F" />
+            <PropertyRef Name="date_absence" />
+          </Key>
+          <Property Name="Cin_F" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_absence" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre_Heure" Type="Int32" />
+          <NavigationProperty Name="Formateur" Relationship="Self.FK__AbsenceF__Cin_F__37A5467C" FromRole="AbsenceF" ToRole="Formateur" />
+        </EntityType>
+        <EntityType Name="Absence">
+          <Key>
+            <PropertyRef Name="CIN" />
+            <PropertyRef Name="Code_M" />
+            <PropertyRef Name="date_absence" />
+          </Key>
+          <Property Name="CIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code_M" Type="Int32" Nullable="false" />
+          <Property Name="date_absence" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre_Heure" Type="Int32" />
+          <NavigationProperty Name="Stagiaire" Relationship="Self.FK__AbsenceS__CIN__33D4B598" FromRole="AbsenceS" ToRole="Stagiaire" />
+          <NavigationProperty Name="Module" Relationship="Self.FK__AbsenceS__Code_M__34C8D9D1" FromRole="AbsenceS" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="Evaluation">
+          <Key>
+            <PropertyRef Name="CIN" />
+            <PropertyRef Name="Code_M" />
+            <PropertyRef Name="dateEval" />
+          </Key>
+          <Property Name="CIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code_M" Type="Int32" Nullable="false" />
+          <Property Name="dateEval" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="note" Type="Double" />
+          <NavigationProperty Name="Module" Relationship="Self.FK__Evaluatio__Code___30F848ED" FromRole="Evaluation" ToRole="Module" />
+          <NavigationProperty Name="Stagiaire" Relationship="Self.FK__Evaluation__CIN__300424B4" FromRole="Evaluation" ToRole="Stagiaire" />
+        </EntityType>
+        <EntityType Name="Filiere">
+          <Key>
+            <PropertyRef Name="Idfil" />
+          </Key>
+          <Property Name="Code_F" Type="Int32" />
+          <Property Name="libelle" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="type_F" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Idfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Stagiaires" Relationship="Self.FK_Etud_Filiere" FromRole="Filiere" ToRole="Stagiaire" />
+        </EntityType>
+        <EntityType Name="Formateur">
+          <Key>
+            <PropertyRef Name="Cin_F" />
+          </Key>
+          <Property Name="Cin_F" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DateNP" Type="DateTime" Precision="0" />
+          <Property Name="Sexe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TelP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AbsenceFs" Relationship="Self.FK__AbsenceF__Cin_F__37A5467C" FromRole="Formateur" ToRole="AbsenceF" />
+          <NavigationProperty Name="Modules" Relationship="Self.FK__Module__Cin_F__2D27B809" FromRole="Formateur" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="SerieA" />
+          </Key>
+          <Property Name="LoginA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Mdp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SerieA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="Code_M" />
+          </Key>
+          <Property Name="Code_M" Type="Int32" Nullable="false" />
+          <Property Name="libelle_M" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="coefficient" Type="Int32" />
+          <Property Name="Mh_M" Type="Int32" />
+          <Property Name="Cin_F" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AbsenceS" Relationship="Self.FK__AbsenceS__Code_M__34C8D9D1" FromRole="Module" ToRole="AbsenceS" />
+          <NavigationProperty Name="Evaluations" Relationship="Self.FK__Evaluatio__Code___30F848ED" FromRole="Module" ToRole="Evaluation" />
+          <NavigationProperty Name="Formateur" Relationship="Self.FK__Module__Cin_F__2D27B809" FromRole="Module" ToRole="Formateur" />
+        </EntityType>
+        <EntityType Name="Stagiaire">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CNE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Naissance" Type="DateTime" Precision="0" />
+          <Property Name="Numero_telephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Idfil" Type="Int32" />
+          <NavigationProperty Name="AbsenceS" Relationship="Self.FK__AbsenceS__CIN__33D4B598" FromRole="Stagiaire" ToRole="AbsenceS" />
+          <NavigationProperty Name="Evaluations" Relationship="Self.FK__Evaluation__CIN__300424B4" FromRole="Stagiaire" ToRole="Evaluation" />
+          <NavigationProperty Name="Filiere" Relationship="Self.FK_Etud_Filiere" FromRole="Stagiaire" ToRole="Filiere" />
+        </EntityType>
+        <EntityType Name="CrystalAffiche">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="coefficient" Type="Int32" />
+          <Property Name="libelle_M" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Moyenne" Type="Double" />
+        </EntityType>
+        <Association Name="FK__AbsenceF__Cin_F__37A5467C">
+          <End Role="Formateur" Type="Self.Formateur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbsenceF" Type="Self.AbsenceF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formateur">
+              <PropertyRef Name="Cin_F" />
+            </Principal>
+            <Dependent Role="AbsenceF">
+              <PropertyRef Name="Cin_F" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AbsenceS__CIN__33D4B598">
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbsenceS" Type="Self.Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagiaire">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="AbsenceS">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AbsenceS__Code_M__34C8D9D1">
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AbsenceS" Type="Self.Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Code_M" />
+            </Principal>
+            <Dependent Role="AbsenceS">
+              <PropertyRef Name="Code_M" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Evaluatio__Code___30F848ED">
+          <End Role="Module" Type="Self.Module" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Code_M" />
+            </Principal>
+            <Dependent Role="Evaluation">
+              <PropertyRef Name="Code_M" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Evaluation__CIN__300424B4">
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagiaire">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Evaluation">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Etud_Filiere">
+          <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filiere">
+              <PropertyRef Name="Idfil" />
+            </Principal>
+            <Dependent Role="Stagiaire">
+              <PropertyRef Name="Idfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Module__Cin_F__2D27B809">
+          <End Role="Formateur" Type="Self.Formateur" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formateur">
+              <PropertyRef Name="Cin_F" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="Cin_F" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionScolariteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AbsenceFs" EntityType="Self.AbsenceF" />
+          <EntitySet Name="AbsenceS" EntityType="Self.Absence" />
+          <EntitySet Name="Evaluations" EntityType="Self.Evaluation" />
+          <EntitySet Name="Filieres" EntityType="Self.Filiere" />
+          <EntitySet Name="Formateurs" EntityType="Self.Formateur" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="Stagiaires" EntityType="Self.Stagiaire" />
+          <EntitySet Name="CrystalAffiches" EntityType="Self.CrystalAffiche" />
+          <AssociationSet Name="FK__AbsenceF__Cin_F__37A5467C" Association="Self.FK__AbsenceF__Cin_F__37A5467C">
+            <End Role="Formateur" EntitySet="Formateurs" />
+            <End Role="AbsenceF" EntitySet="AbsenceFs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AbsenceS__CIN__33D4B598" Association="Self.FK__AbsenceS__CIN__33D4B598">
+            <End Role="Stagiaire" EntitySet="Stagiaires" />
+            <End Role="AbsenceS" EntitySet="AbsenceS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AbsenceS__Code_M__34C8D9D1" Association="Self.FK__AbsenceS__Code_M__34C8D9D1">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="AbsenceS" EntitySet="AbsenceS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Evaluatio__Code___30F848ED" Association="Self.FK__Evaluatio__Code___30F848ED">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Evaluation" EntitySet="Evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Evaluation__CIN__300424B4" Association="Self.FK__Evaluation__CIN__300424B4">
+            <End Role="Stagiaire" EntitySet="Stagiaires" />
+            <End Role="Evaluation" EntitySet="Evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Etud_Filiere" Association="Self.FK_Etud_Filiere">
+            <End Role="Filiere" EntitySet="Filieres" />
+            <End Role="Stagiaire" EntitySet="Stagiaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Module__Cin_F__2D27B809" Association="Self.FK__Module__Cin_F__2D27B809">
+            <End Role="Formateur" EntitySet="Formateurs" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <FunctionImport Name="ProcInsert">
+            <Parameter Name="codef" Mode="In" Type="Int32" />
+            <Parameter Name="lib" Mode="In" Type="String" />
+            <Parameter Name="typef" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Gestion_ScolariteModelStoreContainer" CdmEntityContainer="GestionScolariteEntities">
+          <EntitySetMapping Name="AbsenceFs">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.AbsenceF">
+              <MappingFragment StoreEntitySet="AbsenceF">
+                <ScalarProperty Name="Cin_F" ColumnName="Cin_F" />
+                <ScalarProperty Name="date_absence" ColumnName="date_absence" />
+                <ScalarProperty Name="Nombre_Heure" ColumnName="Nombre_Heure" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbsenceS">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Absence">
+              <MappingFragment StoreEntitySet="AbsenceS">
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+                <ScalarProperty Name="date_absence" ColumnName="date_absence" />
+                <ScalarProperty Name="Nombre_Heure" ColumnName="Nombre_Heure" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evaluations">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Evaluation">
+              <MappingFragment StoreEntitySet="Evaluation">
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+                <ScalarProperty Name="dateEval" ColumnName="dateEval" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filieres">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Filiere">
+              <MappingFragment StoreEntitySet="Filiere">
+                <ScalarProperty Name="Code_F" ColumnName="Code_F" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="type_F" ColumnName="type_F" />
+                <ScalarProperty Name="Idfil" ColumnName="Idfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formateurs">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Formateur">
+              <MappingFragment StoreEntitySet="Formateur">
+                <ScalarProperty Name="Cin_F" ColumnName="Cin_F" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="DateNP" ColumnName="DateNP" />
+                <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="TelP" ColumnName="TelP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="LoginA" ColumnName="LoginA" />
+                <ScalarProperty Name="Mdp" ColumnName="Mdp" />
+                <ScalarProperty Name="SerieA" ColumnName="SerieA" />
+                <ScalarProperty Name="NomA" ColumnName="NomA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Module">
+              <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="Code_M" ColumnName="Code_M" />
+                <ScalarProperty Name="libelle_M" ColumnName="libelle_M" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+                <ScalarProperty Name="Mh_M" ColumnName="Mh_M" />
+                <ScalarProperty Name="Cin_F" ColumnName="Cin_F" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stagiaires">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.Stagiaire">
+              <MappingFragment StoreEntitySet="Stagiaire">
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="CNE" ColumnName="CNE" />
+                <ScalarProperty Name="Date_Naissance" ColumnName="Date_Naissance" />
+                <ScalarProperty Name="Numero_telephone" ColumnName="Numero_telephone" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Idfil" ColumnName="Idfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CrystalAffiches">
+            <EntityTypeMapping TypeName="Gestion_ScolariteModel.CrystalAffiche">
+              <MappingFragment StoreEntitySet="CrystalAffiche">
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+                <ScalarProperty Name="libelle_M" ColumnName="libelle_M" />
+                <ScalarProperty Name="Moyenne" ColumnName="Moyenne" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ProcInsert" FunctionName="Gestion_ScolariteModel.Store.ProcInsert" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gestion_Stagiaire1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AbsenceE">
+    <Key>
+      <PropertyRef Name="Code_E" />
+      <PropertyRef Name="Code_M" />
+      <PropertyRef Name="date_absence" />
+    </Key>
+    <Property Name="Code_E" Type="int" Nullable="false" />
+    <Property Name="Code_M" Type="int" Nullable="false" />
+    <Property Name="date_absence" Type="date" Nullable="false" />
+    <Property Name="Nombre_Heure" Type="int" />
+  </EntityType>
+  <EntityType Name="AbsenceP">
+    <Key>
+      <PropertyRef Name="Cin_P" />
+      <PropertyRef Name="date_absence" />
+    </Key>
+    <Property Name="Cin_P" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="date_absence" Type="date" Nullable="false" />
+    <Property Name="Nombre_Heure" Type="int" />
+  </EntityType>
+  <EntityType Name="Etudiant">
+    <Key>
+      <PropertyRef Name="Code_E" />
+    </Key>
+    <Property Name="Code_E" Type="int" Nullable="false" />
+    <Property Name="Nom" Type="varchar" MaxLength="15" />
+    <Property Name="Prenom" Type="varchar" MaxLength="15" />
+    <Property Name="CIN" Type="varchar" MaxLength="10" />
+    <Property Name="Date_Naissance" Type="date" />
+    <Property Name="Numero_telephone" Type="varchar" MaxLength="10" />
+    <Property Name="Adresse" Type="varchar" MaxLength="100" />
+    <Property Name="Code_F" Type="int" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="CodeEvaluatio" />
+    </Key>
+    <Property Name="Code_E" Type="int" />
+    <Property Name="Code_M" Type="int" />
+    <Property Name="note" Type="float" />
+    <Property Name="CodeEvaluatio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Filiere">
+    <Key>
+      <PropertyRef Name="Code_F" />
+    </Key>
+    <Property Name="Code_F" Type="int" Nullable="false" />
+    <Property Name="libelle" Type="varchar" MaxLength="50" />
+    <Property Name="type_F" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Loginn">
+    <Key>
+      <PropertyRef Name="SerieA" />
+    </Key>
+    <Property Name="LoginA" Type="varchar" MaxLength="10" />
+    <Property Name="Mdp" Type="varchar" MaxLength="20" />
+    <Property Name="SerieA" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="NomA" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Matiere">
+    <Key>
+      <PropertyRef Name="Code_M" />
+    </Key>
+    <Property Name="Code_M" Type="int" Nullable="false" />
+    <Property Name="libelle_M" Type="varchar" MaxLength="50" />
+    <Property Name="coefficient" Type="int" />
+    <Property Name="Mh_M" Type="int" />
+    <Property Name="Cin_P" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Professeur">
+    <Key>
+      <PropertyRef Name="Cin_P" />
+    </Key>
+    <Property Name="Cin_P" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Nom" Type="varchar" MaxLength="15" />
+    <Property Name="Prenom" Type="varchar" MaxLength="20" />
+    <Property Name="DateNP" Type="date" />
+    <Property Name="Sexe" Type="varchar" MaxLength="10" />
+    <Property Name="Adresse" Type="varchar" MaxLength="100" />
+    <Property Name="TelP" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__AbsenceE__Code_E__35BCFE0A">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceE" Type="Self.AbsenceE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="Code_E" />
+      </Principal>
+      <Dependent Role="AbsenceE">
+        <PropertyRef Name="Code_E" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AbsenceE__Code_M__36B12243">
+    <End Role="Matiere" Type="Self.Matiere" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceE" Type="Self.AbsenceE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matiere">
+        <PropertyRef Name="Code_M" />
+      </Principal>
+      <Dependent Role="AbsenceE">
+        <PropertyRef Name="Code_M" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AbsenceP__Cin_P__398D8EEE">
+    <End Role="Professeur" Type="Self.Professeur" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceP" Type="Self.AbsenceP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professeur">
+        <PropertyRef Name="Cin_P" />
+      </Principal>
+      <Dependent Role="AbsenceP">
+        <PropertyRef Name="Cin_P" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Etudiant__Code_F__2A4B4B5E">
+    <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filiere">
+        <PropertyRef Name="Code_F" />
+      </Principal>
+      <Dependent Role="Etudiant">
+        <PropertyRef Name="Code_F" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluatio__Code___31EC6D26">
+    <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etudiant">
+        <PropertyRef Name="Code_E" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="Code_E" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluatio__Code___32E0915F">
+    <End Role="Matiere" Type="Self.Matiere" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matiere">
+        <PropertyRef Name="Code_M" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="Code_M" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Matiere__Cin_P__2F10007B">
+    <End Role="Professeur" Type="Self.Professeur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Matiere" Type="Self.Matiere" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professeur">
+        <PropertyRef Name="Cin_P" />
+      </Principal>
+      <Dependent Role="Matiere">
+        <PropertyRef Name="Cin_P" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Gestion_Stagiaire1ModelStoreContainer">
+    <EntitySet Name="AbsenceE" EntityType="Self.AbsenceE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AbsenceP" EntityType="Self.AbsenceP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Etudiant" EntityType="Self.Etudiant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Evaluation" EntityType="Self.Evaluation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Filiere" EntityType="Self.Filiere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Loginn" EntityType="Self.Loginn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Matiere" EntityType="Self.Matiere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Professeur" EntityType="Self.Professeur" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AbsenceE__Code_E__35BCFE0A" Association="Self.FK__AbsenceE__Code_E__35BCFE0A">
+      <End Role="Etudiant" EntitySet="Etudiant" />
+      <End Role="AbsenceE" EntitySet="AbsenceE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AbsenceE__Code_M__36B12243" Association="Self.FK__AbsenceE__Code_M__36B12243">
+      <End Role="Matiere" EntitySet="Matiere" />
+      <End Role="AbsenceE" EntitySet="AbsenceE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AbsenceP__Cin_P__398D8EEE" Association="Self.FK__AbsenceP__Cin_P__398D8EEE">
+      <End Role="Professeur" EntitySet="Professeur" />
+      <End Role="AbsenceP" EntitySet="AbsenceP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Etudiant__Code_F__2A4B4B5E" Association="Self.FK__Etudiant__Code_F__2A4B4B5E">
+      <End Role="Filiere" EntitySet="Filiere" />
+      <End Role="Etudiant" EntitySet="Etudiant" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluatio__Code___31EC6D26" Association="Self.FK__Evaluatio__Code___31EC6D26">
+      <End Role="Etudiant" EntitySet="Etudiant" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluatio__Code___32E0915F" Association="Self.FK__Evaluatio__Code___32E0915F">
+      <End Role="Matiere" EntitySet="Matiere" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Matiere__Cin_P__2F10007B" Association="Self.FK__Matiere__Cin_P__2F10007B">
+      <End Role="Professeur" EntitySet="Professeur" />
+      <End Role="Matiere" EntitySet="Matiere" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gestion_ScolariteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AbsenceF">
+    <Key>
+      <PropertyRef Name="Cin_F" />
+      <PropertyRef Name="date_absence" />
+    </Key>
+    <Property Name="Cin_F" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="date_absence" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nombre_Heure" Type="int" />
+  </EntityType>
+  <EntityType Name="AbsenceS">
+    <Key>
+      <PropertyRef Name="CIN" />
+      <PropertyRef Name="Code_M" />
+      <PropertyRef Name="date_absence" />
+    </Key>
+    <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Code_M" Type="int" Nullable="false" />
+    <Property Name="date_absence" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nombre_Heure" Type="int" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="CIN" />
+      <PropertyRef Name="Code_M" />
+      <PropertyRef Name="dateEval" />
+    </Key>
+    <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Code_M" Type="int" Nullable="false" />
+    <Property Name="dateEval" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="note" Type="float" />
+  </EntityType>
+  <EntityType Name="Filiere">
+    <Key>
+      <PropertyRef Name="Idfil" />
+    </Key>
+    <Property Name="Code_F" Type="int" />
+    <Property Name="libelle" Type="varchar" MaxLength="10" />
+    <Property Name="type_F" Type="varchar" MaxLength="20" />
+    <Property Name="Idfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Formateur">
+    <Key>
+      <PropertyRef Name="Cin_F" />
+    </Key>
+    <Property Name="Cin_F" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nom" Type="varchar" MaxLength="20" />
+    <Property Name="Prenom" Type="varchar" MaxLength="20" />
+    <Property Name="DateNP" Type="date" />
+    <Property Name="Sexe" Type="varchar" MaxLength="10" />
+    <Property Name="Adresse" Type="varchar" MaxLength="100" />
+    <Property Name="TelP" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="SerieA" />
+    </Key>
+    <Property Name="LoginA" Type="varchar" MaxLength="10" />
+    <Property Name="Mdp" Type="varchar" MaxLength="20" />
+    <Property Name="SerieA" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="NomA" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="Code_M" />
+    </Key>
+    <Property Name="Code_M" Type="int" Nullable="false" />
+    <Property Name="libelle_M" Type="varchar" MaxLength="50" />
+    <Property Name="coefficient" Type="int" />
+    <Property Name="Mh_M" Type="int" />
+    <Property Name="Cin_F" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Stagiaire">
+    <Key>
+      <PropertyRef Name="CIN" />
+    </Key>
+    <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nom" Type="varchar" MaxLength="20" />
+    <Property Name="Prenom" Type="varchar" MaxLength="20" />
+    <Property Name="CNE" Type="varchar" MaxLength="20" />
+    <Property Name="Date_Naissance" Type="date" />
+    <Property Name="Numero_telephone" Type="varchar" MaxLength="15" />
+    <Property Name="Adresse" Type="varchar" MaxLength="100" />
+    <Property Name="Idfil" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Gestion_Scolarite.dbo.CrystalAffiche' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="CrystalAffiche">
+    <Key>
+      <PropertyRef Name="CIN" />
+    </Key>
+    <Property Name="CIN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nom" Type="varchar" MaxLength="20" />
+    <Property Name="Prenom" Type="varchar" MaxLength="20" />
+    <Property Name="coefficient" Type="int" />
+    <Property Name="libelle_M" Type="varchar" MaxLength="50" />
+    <Property Name="Moyenne" Type="float" />
+  </EntityType>
+  <Association Name="FK__AbsenceF__Cin_F__37A5467C">
+    <End Role="Formateur" Type="Self.Formateur" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceF" Type="Self.AbsenceF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Formateur">
+        <PropertyRef Name="Cin_F" />
+      </Principal>
+      <Dependent Role="AbsenceF">
+        <PropertyRef Name="Cin_F" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AbsenceS__CIN__33D4B598">
+    <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceS" Type="Self.AbsenceS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stagiaire">
+        <PropertyRef Name="CIN" />
+      </Principal>
+      <Dependent Role="AbsenceS">
+        <PropertyRef Name="CIN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AbsenceS__Code_M__34C8D9D1">
+    <End Role="Module" Type="Self.Module" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AbsenceS" Type="Self.AbsenceS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Code_M" />
+      </Principal>
+      <Dependent Role="AbsenceS">
+        <PropertyRef Name="Code_M" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluatio__Code___30F848ED">
+    <End Role="Module" Type="Self.Module" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Code_M" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="Code_M" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Evaluation__CIN__300424B4">
+    <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stagiaire">
+        <PropertyRef Name="CIN" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="CIN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Module__Cin_F__2D27B809">
+    <End Role="Formateur" Type="Self.Formateur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Module" Type="Self.Module" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Formateur">
+        <PropertyRef Name="Cin_F" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="Cin_F" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Etud_Filiere">
+    <End Role="Filiere" Type="Self.Filiere" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Stagiaire" Type="Self.Stagiaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Filiere">
+        <PropertyRef Name="Idfil" />
+      </Principal>
+      <Dependent Role="Stagiaire">
+        <PropertyRef Name="Idfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ProcInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="codef" Type="int" Mode="In" />
+    <Parameter Name="lib" Type="varchar" Mode="In" />
+    <Parameter Name="typef" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="Gestion_ScolariteModelStoreContainer">
+    <EntitySet Name="AbsenceF" EntityType="Self.AbsenceF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AbsenceS" EntityType="Self.AbsenceS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Evaluation" EntityType="Self.Evaluation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Filiere" EntityType="Self.Filiere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Formateur" EntityType="Self.Formateur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stagiaire" EntityType="Self.Stagiaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CrystalAffiche" EntityType="Self.CrystalAffiche" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CrystalAffiche].[CIN] AS [CIN], 
+    [CrystalAffiche].[Nom] AS [Nom], 
+    [CrystalAffiche].[Prenom] AS [Prenom], 
+    [CrystalAffiche].[coefficient] AS [coefficient], 
+    [CrystalAffiche].[libelle_M] AS [libelle_M], 
+    [CrystalAffiche].[Moyenne] AS [Moyenne]
+    FROM [dbo].[CrystalAffiche] AS [CrystalAffiche]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__AbsenceF__Cin_F__37A5467C" Association="Self.FK__AbsenceF__Cin_F__37A5467C">
+      <End Role="Formateur" EntitySet="Formateur" />
+      <End Role="AbsenceF" EntitySet="AbsenceF" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AbsenceS__CIN__33D4B598" Association="Self.FK__AbsenceS__CIN__33D4B598">
+      <End Role="Stagiaire" EntitySet="Stagiaire" />
+      <End Role="AbsenceS" EntitySet="AbsenceS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AbsenceS__Code_M__34C8D9D1" Association="Self.FK__AbsenceS__Code_M__34C8D9D1">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="AbsenceS" EntitySet="AbsenceS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluatio__Code___30F848ED" Association="Self.FK__Evaluatio__Code___30F848ED">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Evaluation__CIN__300424B4" Association="Self.FK__Evaluation__CIN__300424B4">
+      <End Role="Stagiaire" EntitySet="Stagiaire" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Module__Cin_F__2D27B809" Association="Self.FK__Module__Cin_F__2D27B809">
+      <End Role="Formateur" EntitySet="Formateur" />
+      <End Role="Module" EntitySet="Module" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Etud_Filiere" Association="Self.FK_Etud_Filiere">
+      <End Role="Filiere" EntitySet="Filiere" />
+      <End Role="Stagiaire" EntitySet="Stagiaire" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
